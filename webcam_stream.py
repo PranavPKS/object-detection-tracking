@@ -19,7 +19,8 @@ class WebcamVideoStream:
         #Debug stream shape
         self.real_width = int(self.stream.get(3))
         self.real_height = int(self.stream.get(4))
-        print("> Start video stream with shape: {},{}".format(self.real_width,self.real_height))
+        print("Start video stream with shape: {},{}".format(self.real_width,self.real_height))
+	print("(Press 'q' to Exit)")
     
     def start(self):
         # start the thread to read frames from the video stream
@@ -32,6 +33,7 @@ class WebcamVideoStream:
             # if the thread indicator variable is set, stop the thread
             if self.stopped:
                 self.stream.release()
+		cv2.destroyAllWindows()
                 return
 
             # otherwise, read the next frame from the stream
@@ -54,5 +56,5 @@ class WebcamVideoStream:
         try:
             self.frame = cv2.resize(self.frame, (self.width, self.height)) 
         except:
-            print("> Error resizing video stream")
+            print("Error resizing video stream")
 
